@@ -5,7 +5,7 @@ using OrderService.Data;
 using OrderService.Models;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("[controller]")]
 public class OrdersController : ControllerBase
 {
     private readonly IOrderRepository _orderRepository;
@@ -13,6 +13,12 @@ public class OrdersController : ControllerBase
     public OrdersController(IOrderRepository orderRepository)
     {
         _orderRepository = orderRepository;
+    }
+
+    [HttpGet("test")]
+    public async Task<IActionResult> GetTest()
+    {
+        return Ok("Hello from OrderService");
     }
 
     [HttpGet]

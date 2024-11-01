@@ -4,7 +4,7 @@ using ProductService.Models;
 
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("[controller]")]
 public class ProductsController : ControllerBase
 {
     private readonly IProductRepository _productRepository;
@@ -12,6 +12,12 @@ public class ProductsController : ControllerBase
     public ProductsController(IProductRepository productRepository)
     {
         _productRepository = productRepository;
+    }
+
+    [HttpGet("test")]
+    public async Task<IActionResult> GetTest()
+    {
+        return Ok("Hello from ProductService");
     }
 
     [HttpGet]
