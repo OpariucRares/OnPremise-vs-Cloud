@@ -1,7 +1,10 @@
 using Microsoft.EntityFrameworkCore;
+using Npgsql.EntityFrameworkCore.PostgreSQL;
+using DotNetEnv;
 using OrderService.Contracts;
 using OrderService.Data;
 
+Env.Load();
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
@@ -12,8 +15,14 @@ builder.Services.AddSwaggerGen();
 
 //database
 builder.Services.AddScoped<IOrderDbContext, OrderDbContext>();
+
+//MS Visual Studio
+//var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING_MS_VISUAL_STUDIO");
+
+//Docker
+var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING_DOCKER");
 builder.Services.AddDbContext<OrderDbContext>(options =>
-    options.UseInMemoryDatabase("OrderDb")); 
+    options.UseNpgsql(connectionString));
 
 //repository
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();

@@ -1,7 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using ProductService.Contracts;
 using ProductService.Data;
+using DotNetEnv;
 
+Env.Load();
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
@@ -12,8 +14,15 @@ builder.Services.AddSwaggerGen();
 
 //database
 builder.Services.AddScoped<IProductDbContext, ProductDbContext>();
+
+//MS Visual Studio
+//var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING_MS_VISUAL_STUDIO");
+
+//Docker
+var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING_DOCKER");
+
 builder.Services.AddDbContext<ProductDbContext>(options =>
-    options.UseInMemoryDatabase("ProductDb"));
+    options.UseNpgsql(connectionString));
 
 //repository
 builder.Services.AddScoped<IProductRepository, ProductRepository>();

@@ -10,6 +10,8 @@ services:
       dockerfile: ProductService/Dockerfile
     ports:
       - "5002:5002"
+    env_file:
+      - ./ProductService/.env
 
   orderservice:
     image: orderservice
@@ -18,3 +20,5 @@ services:
       dockerfile: OrderService/Dockerfile
     ports:
       - "5001:5001"
+    env_file:
+      - ./OrderService/.env

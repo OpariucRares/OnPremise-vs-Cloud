@@ -2,6 +2,9 @@
 # do it from root directory
 # docker build -t orderservice -f OrderService/Dockerfile .
 # docker run -d -p 5001:5001 orderservice
+# docker run -d -p 5001:5001 -e CONNECTION_STRING="Secret" orderservice
+# docker run -d -p 5001:5001 --env-file OrderService/.env orderservice
+
 # docker stop productservice orderservice
 # docker rm productservice orderservice
 
@@ -25,4 +28,5 @@ RUN dotnet publish "OrderService.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+COPY OrderService/.env .env 
 ENTRYPOINT ["dotnet", "OrderService.dll"]

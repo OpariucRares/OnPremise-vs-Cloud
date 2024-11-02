@@ -9,12 +9,7 @@ namespace OrderService.Data
     {
         public OrderDbContext(DbContextOptions<OrderDbContext> options) : base(options) { }
         public DbSet<Order> Orders { get; set; }
-        /*
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlite(configuration.GetConnectionString("EducationalPlatformConnection"));
-        }
-        */
+        
         // Seeding the data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
