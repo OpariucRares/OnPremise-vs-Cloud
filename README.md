@@ -97,6 +97,13 @@ We will use VS Code to run this project. You need:
  cd backend/OrderService
  dotnet restore
 
+ # install entity framework globally
+ dotnet tool install --global dotnet-ef
+
+ # this will populate the database using the Migrations folder
+ # Migration name is InitialCreate
+ dotnet ef database update InitialCreate
+
  # default it is in debug mode
  dotnet build
 
